@@ -1,0 +1,44 @@
+<snippet>
+  <content><![CDATA[
+bitset<mx>is_composite;
+vector<int>prime;
+int phi[mx];
+
+void seive()
+{
+    phi[1] = 1;
+
+    n = mx - 3;
+
+    for (int i = 2; i <= n; i++)
+    {
+        if (!is_composite[i])
+        {
+            prime.push_back(i);
+            phi[i] = i - 1;          ///i is prime
+        }
+
+        for (int j = 0; j < prime.size() && i * prime[j] <= n; j++)
+        {
+            is_composite[i * prime[j]] = true;
+
+            if (i % prime[j] == 0)
+            {
+                phi[i * prime[j]] = phi[i] * prime[j]; ///prime[j] divides i
+                break;
+            }
+            else
+            {
+                phi[i * prime[j]] = phi[i] * phi[prime[j]]; ///prime[j] do not divide i
+            }
+        }
+    }
+}
+
+]]></content>
+  <tabTrigger>z_seive</tabTrigger>
+  <description>z_seive</description>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <!-- <scope >source.python</scope > -->
+</snippet>
+
